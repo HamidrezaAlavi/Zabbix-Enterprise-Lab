@@ -1,0 +1,23 @@
+# ==============================================================================
+# TP-Link TD-W8961N - SNMP Agent Configuration Guide
+# ==============================================================================
+# This document outlines the Web GUI configuration required to integrate the 
+# physical edge modem into the Zabbix monitoring environment.
+
+Step 1: Access the Web Interface
+- Navigate to the default gateway IP (usually 192.168.1.1) in a web browser.
+- Authenticate with administrator credentials.
+
+Step 2: Locate SNMP Settings
+- Navigate to the 'Management' tab or 'Access Management' section.
+- Select the 'SNMP' or 'SNMP Agent' submenu.
+
+Step 3: Apply Monitoring Parameters
+- SNMP: Activated (or Enabled)
+- Get Community: public (This is used by Zabbix for Read-Only polling)
+- Set Community: public (Write access - not utilized by Zabbix basic templates)
+- Trap Host: 0.0.0.0 (Disabled, as Zabbix will actively poll the device)
+
+Step 4: Save & Apply
+- Save the configuration. 
+- In Zabbix, attach the "Generic by SNMP" or "Interfaces by SNMP" template to this host's IP.

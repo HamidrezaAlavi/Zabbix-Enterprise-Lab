@@ -1,0 +1,34 @@
+zabbix_export:
+  version: '7.0'
+  host_groups:
+    - uuid: 6f6799aa69e844b4b3918f779f2abf08
+      name: 'Zabbix servers'
+  hosts:
+    - host: 'Zabbix server'
+      name: 'Zabbix server'
+      templates:
+        - name: 'Linux by Zabbix agent'
+        - name: 'Zabbix server health'
+      groups:
+        - name: 'Zabbix servers'
+      interfaces:
+        - interface_ref: if1
+      items:
+        - name: 'Number of Online Users'
+          key: system.online.users
+          delay: 30s
+          interface_ref: if1
+          triggers:
+            - expression: 'last(/Zabbix server/system.online.users)>2'
+              name: 'Number of Online Users More Than 2'
+              priority: INFO
+      inventory:
+        name: zabbix-server
+        os: 'Linux version 6.8.0-117-generic (buildd@lcy02-amd64-102) (x86_64-linux-gnu-gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU l'
+        location_lat: '56.97612'
+        location_lon: '24.16553'
+      inventory_mode: AUTOMATIC
+  triggers:
+    - expression: 'min(/Zabbix server/system.cpu.util,2)>=90'
+      name: 'CPU utilization is too high for 2 minutes'
+      priority: WARNING

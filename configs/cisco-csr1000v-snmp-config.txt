@@ -1,0 +1,26 @@
+! ==============================================================================
+! Cisco CSR1000v (IOS-XE) - Network & SNMPv2 Configuration for Zabbix Monitoring
+! ==============================================================================
+
+! 1. Enter Global Configuration Mode
+configure terminal
+
+! 2. Configure the primary interface
+interface GigabitEthernet1
+ description Connection to VMware Network / Zabbix Server
+ ip address dhcp
+ ! Note: For static IP use -> ip address 192.168.1.x 255.255.255.0
+ no shutdown
+ exit
+
+! 3. Configure SNMPv2c for Monitoring
+! Setting the community string to 'public' with Read-Only (RO) access
+snmp-server community public RO
+
+! 4. Add Inventory Information (Optional but recommended for Zabbix Geomap)
+snmp-server location Mashhad, Iran
+snmp-server contact Admin NOC
+
+! 5. Save the configuration to NVRAM
+end
+write memory

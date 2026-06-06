@@ -1,0 +1,19 @@
+zabbix_export:
+  version: '7.0'
+  host_groups:
+    - uuid: 748ad4d098d447d492bb935c907f652f
+      name: Databases
+    - uuid: dc579cd7a1a34222933f24f52a68bcd8
+      name: 'Linux servers'
+  hosts:
+    - host: zabbix-db
+      name: zabbix-db
+      templates:
+        - name: 'Linux by Zabbix agent'
+      groups:
+        - name: Databases
+        - name: 'Linux servers'
+      interfaces:
+        - ip: 192.168.238.20
+          interface_ref: if1
+      inventory_mode: DISABLED
